@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "Hex Color Text Highlighter",
+    "author": "https://github.com/mark-asuncion",
+    "version": "1.0",
+    "description": "Highlight hex in a webpage to show the its color",
+    "permissions":  [
+        "activeTab",
+        "contextMenus"
+    ],
+    "background": {
+        "service_worker": "scripts/background.js"
+    },
+    "icons": {
+        "16": "images/icon-16.png"
+    },
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "scripts/content.js",
+                "scripts/popup.js"
+            ],
+            "matches": [ "*://*/*" ]
+        }
+    ]
+}
