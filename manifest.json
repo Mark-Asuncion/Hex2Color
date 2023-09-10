@@ -23,7 +23,7 @@
                 "scripts/content.js",
                 "scripts/popup.js"
             ],
-            "matches": [ "*://*/*" ]
+            "matches": [ "<all_urls>", "file:///*" ]
         }
     ]
 }

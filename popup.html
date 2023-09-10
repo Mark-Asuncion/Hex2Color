@@ -13,6 +13,13 @@
             h1 {
                 font-size: 2em;
                 margin: auto;
+                text-align: center;
+            }
+            #hex {
+                box-sizing: content-box;
+                position: relative;
+                width: 90%;
+                margin: 10px 0px;
             }
             canvas {
                 box-sizing: content-box;
@@ -25,7 +32,8 @@
         </style>
     </head>
     <body>
-        <h1>Hex Color Text Highlighter</h1>
+        <h1>Hex to Color</h1>
+        <input type="text" name="hex" id="hex" value="">
         <canvas id="canvas"></canvas>
         <script src="./scripts/popup.js" type="module"></script>
     </body>

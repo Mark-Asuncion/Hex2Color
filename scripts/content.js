@@ -9,12 +9,11 @@ addEventListener("mouseup", (_) => {
     let text = selection.getRangeAt(0);
     console.log(`${text} type: ${selection.type}`);
 
-    // do validation
-
+    message.change_color = true;
     message.icon_color = text.toString();
     chrome.runtime.sendMessage(message)
-        .catch((err) => {
-            console.log(err);
+        .catch((e) => {
+            console.log(e);
         });
 });
 
