@@ -1,9 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "Hex Color Text Highlighter",
+    "name": "Hex to Color",
     "author": "https://github.com/mark-asuncion",
     "version": "1.0",
-    "description": "Highlight hex in a webpage to show the its color",
+    "description": "Highlight hex in a webpage to show its color",
     "permissions":  [
         "activeTab",
         "contextMenus"
@@ -23,7 +23,10 @@
                 "scripts/content.js",
                 "scripts/popup.js"
             ],
-            "matches": [ "<all_urls>", "file:///*" ]
+            "matches": [
+                "<all_urls>",
+                "file:///*"
+            ]
         }
     ]
 }
