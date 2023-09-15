@@ -15,12 +15,28 @@ chrome.runtime.onMessage.addListener((message, _sender, _sendResponse) => {
                 val => {
                     // TODO: expand str color if less than len of 6
                     console.log(val);
-                    change_icon_color(val);
+                    change_icon_color(expand(val));
                 },
                 e => { console.error(e); }
             )
     }
 });
+
+function expand(color /* string */) {
+    if (!color) { return null; }
+    let idx = 0;
+    if (color[idx] === '#') { idx++; }
+    let ret = ""
+    let chex = Math.trunc( 6 / (color.length - idx) );
+    for (idx; idx<color.length;idx++) {
+        ret+=color[idx].repeat( (chex === 0)? 1:chex);
+    }
+    if (ret.length < 6) {
+        ret+='0'.repeat(ret.length-6);
+    }
+    console.log(ret)
+    return ret;
+}
 
 function validate_hex(color /* string */) {
     if (!color) { return Promise.reject("Empty"); }
@@ -30,11 +46,10 @@ function validate_hex(color /* string */) {
     if (color[idx] === '#') idx++;
     while (idx<maxLen && idx<color.length) {
         let ctr = 0;
-        for (const ch_hex of HEX) {
-            if (color[idx] === ch_hex) {
+        for (ctr;ctr < HEX.length;ctr++) {
+            if (color[idx] === HEX[ctr]) {
                 break;
             }
-            ctr++;
         }
         if (ctr === ( HEX.length )) {
             return Promise.reject("Invalid");
@@ -45,6 +60,8 @@ function validate_hex(color /* string */) {
 }
 
 function change_icon_color(color /* string */) {
+    if (!color) { return undefined; }
+
     context.clearRect(0, 0, img_size, img_size);
     context.fillStyle = (color[0] === '#')? color:`#${color}`;
     context.fillRect(0, 0, img_size, img_size);
