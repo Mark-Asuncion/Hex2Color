@@ -4,25 +4,29 @@ const context = canvas.getContext("2d", { willReadFrequently: true });
 const HEX = [
     '0', '1', '2', '3', '4',
     '5', '6', '7', '8', '9',
-    'A', 'B', 'C', 'D', 'F'
+    'A', 'B', 'C', 'D','E','F'
 ]
 
 chrome.runtime.onMessage.addListener((message, _sender, _sendResponse) => {
-    // console.log(`Received Message: ${message["icon-color"]}`);
     if (message.change_color) {
         validate_hex(message.icon_color)
             .then(
                 val => {
-                    // TODO: expand str color if less than len of 6
                     console.log(val);
-                    change_icon_color(expand(val));
+                    if ( change_icon_color(expand(val)) ) {
+
+                    }
                 },
                 e => { console.error(e); }
             )
     }
 });
 
-function expand(color /* string */) {
+/**
+ * @param {string} color
+ * @return {string}
+ */
+function expand(color) {
     if (!color) { return null; }
     let idx = 0;
     if (color[idx] === '#') { idx++; }
@@ -38,7 +42,11 @@ function expand(color /* string */) {
     return ret;
 }
 
-function validate_hex(color /* string */) {
+/**
+ * @param {string} color
+ * @return {string}
+ */
+function validate_hex(color) {
     if (!color) { return Promise.reject("Empty"); }
     let maxLen = 6;
     let idx = 0;
@@ -59,8 +67,12 @@ function validate_hex(color /* string */) {
     return Promise.resolve(color);
 }
 
-function change_icon_color(color /* string */) {
-    if (!color) { return undefined; }
+/**
+ * @param {string} color
+ * @return {bool}
+ */
+function change_icon_color(color) {
+    if (!color) { return false; }
 
     context.clearRect(0, 0, img_size, img_size);
     context.fillStyle = (color[0] === '#')? color:`#${color}`;
@@ -68,4 +80,5 @@ function change_icon_color(color /* string */) {
     const imageData = context.getImageData(0, 0, img_size, img_size);
     chrome.action.setIcon({ imageData: imageData }, () => {
     });
+    return true;
 }
