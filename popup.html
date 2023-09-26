@@ -7,34 +7,80 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
             body {
-                width: 14rem;
-                margin: 10px;
+                margin: 0;
+                width: 20rem;
+                height: 15rem;
+                color: white;
+                font-family: sans-serif;
             }
+
+            .header {
+                position: relative;
+                text-align: center;
+                padding-top: 10px;
+                background-color: #252525;
+                width: 100%;
+                height: fit-content;
+            }
+
             h1 {
                 font-size: 2em;
                 margin: auto;
                 text-align: center;
             }
-            #hex {
+
+            #hex-input {
                 box-sizing: content-box;
                 position: relative;
                 width: 90%;
                 margin: 10px 0px;
             }
+
+            img {
+                display: inline-block;
+                width: 3em;
+                margin: 0;
+                height: auto;
+                vertical-align: middle;
+            }
+
+            input[type=text] {
+                postiion: relative;
+                display: inline-block;
+                margin: auto;
+                width: 40% !important;
+                border-radius: 5px;
+                border: none;
+            }
+
+            .container-canvas {
+                box-sizing: border-box;
+                postiion: relative;
+                padding: 0;
+                margin-top: 5px;
+                height: 1fr;
+            }
+
             canvas {
-                box-sizing: content-box;
-                position: relative;
+                display: block;
+                box-sizing: border-box;
                 margin: 0;
                 width: 100%;
                 height: 100%;
-                border: 1px solid black;
+                background-color: black;
             }
+
         </style>
     </head>
     <body>
-        <h1>Hex to Color</h1>
-        <input type="text" name="hex" id="hex" value="">
-        <canvas id="canvas"></canvas>
+        <div class="header">
+            <h1>Hex to Color</h1>
+            <img src="images/icon_hash.svg" />
+            <input type="text" name="hex-input" id="hex-input" value="">
+        </div>
+        <div class="container-canvas">
+            <canvas id="canvas"></canvas>
+        </div>
         <script src="./scripts/popup.js" type="module"></script>
     </body>
 </html>
