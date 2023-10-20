@@ -6,8 +6,6 @@ const HEX = [
 
 addEventListener("mouseup", (_) => {
     let selection = document.getSelection();
-    let message = {};
-
     if (selection.type === "Caret"
         || selection.type === "None"
         || selection.type !== "Range"
@@ -18,19 +16,21 @@ addEventListener("mouseup", (_) => {
     try {
         text = selection.getRangeAt(0);
     }
-    catch (e){ console.error(`HextoColorError: ${e}`); }
+    catch (e) {
+        console.error(`HextoColorError: ${e}`);
+        return;
+    }
     validate_hex(text.toString())
         .then(
             val => {
-                message.change_color = true;
+                let message = {};
+                message.request = "iconchange";
                 message.icon_color = expand(val);
-
                 chrome.runtime.sendMessage(message)
                     .catch((e) => {
                         console.error(`HextoColorError: ${e}`);
                     });
             },
-            e => { console.error(`HextoColorError: ${e}`); }
         )
 });
 
@@ -77,11 +77,3 @@ function validate_hex(color) {
     }
     return Promise.resolve(color);
 }
-
-/*
-*   You can call Document.getSelection(), which works identically to Window.getSelection().
-*
-*   It is worth noting that currently getSelection() doesn't work on the content of <textarea> and <input> elements in Firefox and Edge (Legacy). HTMLInputElement.setSelectionRange() or the selectionStart and selectionEnd properties could be used to work around this.
-*
-*   Notice also the difference between selection and focus. Document.activeElement returns the focused element.
-*/
